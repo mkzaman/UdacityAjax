@@ -22,6 +22,22 @@ function loadData() {
 
     $greeting.text('So you want to live in ' + street + ' ' + city + '?');
 
+    var requestNYtimes = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=30af9cbcd1094c05979ae76a864cad7e&q="+ city;
+
+    $.getJSON(requestNYtimes,function(data){
+      $nytHeaderElem.text("NYtimes news about " + city);
+      var items = [];
+      $.each(data.response.docs, function(key, value){
+          items.push( "<li id='" + key + "'>" + 	"<a href='" +value.web_url+ "'" +">"+
+                "<h3>" + value.headline.main+ "</h3>"+"<a/>"+
+                "<p>"+ value.snippet +"</p>"+
+                "</li>" );
+      });
+      $nytElem.append(items.join(''));
+    }).error(function(e){
+      $nytHeaderElem.text("nytimes can't be loaded");
+    });
+
     // YOUR CODE GOES HERE!
 
     return false;
