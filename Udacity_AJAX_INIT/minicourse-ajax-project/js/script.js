@@ -13,12 +13,12 @@ function loadData() {
 
     // load streetview
 
-    $('.bgImg').remove();
+    $('.bgimg').remove();
     var street = $('#street').val();
     var city = $('#city').val();
     var imagesource = 'http://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + street + ',' + city;
 
-    $body.append('<img class="bgImg" height=100% width=100% src="'+imagesource+'">');
+    $body.append('<img class="bgimg" src="'+imagesource+'">');
 
     $greeting.text('So you want to live in ' + street + ' ' + city + '?');
 
