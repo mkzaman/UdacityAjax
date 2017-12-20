@@ -38,8 +38,28 @@ function loadData() {
       $nytHeaderElem.text("nytimes can't be loaded");
     });
 
-    // YOUR CODE GOES HERE!
 
+    var searchMe =  $('#city').val(); //picks the user-generated value
+    var apiUrl = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + searchMe + '&format=json&callback=?'; // API url
+    $.ajax({
+      url: apiUrl,
+      dataType: 'json',
+      type:'GET',
+      success: function(data) {
+        var items = [];
+        var lis = [];
+        items = data;
+        var labels = items[1];
+        var links = items[3];
+        for(var i=0; i < labels.length; i++)
+        {
+          lis.push( "<li> " + 	"<a href='" +links[i]+ "'" +">"+
+                "<h3>" + labels[i]+ "</h3>"+"<a/>"+
+                "</li>" );
+        }
+        $wikiElem.append(lis.join(''));
+      }
+    });
     return false;
 };
 
